@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Online Dictionary</title>
+    </h:head>
+    <h:body>
+        <h1>Welcome to our Online Dictionary</h1>
+        <br />
+        <h3>Word definition</h3>
+        <p>Enter a word and click define to get its definition across multiple dictionaries</p>
+        <br />
+        <h:form>
+            Word: <h:inputText id="word" value="#{dictionaryBean.word}" required="true"/>            
+            <h:commandButton value="Define">
+                <f:ajax listener="#{dictionaryBean.define}" execute="word" render="definitions" />
+            </h:commandButton>
+            <br />
+            <br />
+            <h:outputLabel value="Definitions: " /> 
+            <br />
+            <br />
+            <h:outputText id="definitions" value="#{dictionaryBean.definitions}" />
+        </h:form>
+        <br />
+        <h3>Word lookup</h3>
+        <p>Enter a word and use a prefix, suffix or SoundEx strategy to find matching words</p>
+        <br />
+        <h:form>
+            Word: <h:inputText id="word" value="#{dictionaryBean.word}"/>
+            <br />     
+            Strategy: <h:selectOneMenu value="#{dictionaryBean.strategy}" id="strategy">
+                        <f:selectItem itemValue="prefix" itemLabel="Prefix" />
+                        <f:selectItem itemValue="suffix" itemLabel="Suffix" />
+                        <f:selectItem itemValue="SoundEx" itemLabel="SoundEx" />
+                      </h:selectOneMenu>
+            <br />   
+            <h:commandButton value="Find a match">
+                <f:ajax listener="#{dictionaryBean.match}" execute="word strategy" render="matches" />
+            </h:commandButton>
+            <br />
+            <br />
+            <h:outputLabel value="Matches: " /> 
+            <br />
+            <br />
+            <h:outputText id="matches" value="#{dictionaryBean.matches}" />
+            <br />         
+        </h:form>
+    </h:body>
+</html>
+
